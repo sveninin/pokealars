@@ -31,12 +31,26 @@
     .fall-back {
         transform: rotateX(90deg) translateY(0px);
     }
+        
+    @keyframes pop {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    }
+
+    .pop {
+        animation: pop 0.3s ease;
+    }
     </style>
 </head>
 <body>
     <div class="image-container">
         <img src="lars_moment.jpg" alt="Center Image" id="interactiveImage">
-        <audio id="sound" src="mmeeeee.mp3"></audio>
+        <audio id="sound_mmme" src="mmeeeee.mp3"></audio>
+        <audio id="sound_lars" src="lars_angry.mp3"></audio>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -44,12 +58,22 @@
 
         image.addEventListener("click", () => {
             // Add class to animate the image
-            image.classList.add("fall-back");
-            document.getElementById('sound').play();
+            // check if lars can fight back (only 70% chance, lars is weak)
+            const fightBack = () => Math.random() < 0.7 ? 0 : 1;
+            // if fightBack == 0 (play mmmmeeeeeee)
+            if (fightBack == 0){
+                image.classList.add("fall-back");
+                document.getElementById('sound_mmme').play();
             // Remove the class after the animation duration (0.6s)
-            setTimeout(() => {
-                image.classList.remove("fall-back");
-            }, 600);
+                setTimeout(() => {
+                    image.classList.remove("fall-back");
+                }, 600);
+            } else if (fightBack == 1) {
+                image.classList.remove("pop");
+                void image.offsetWidth;
+                image.classList.add("pop");
+                document.getElementById('sound_lars').play();
+            };
         });
     });
     </script>
