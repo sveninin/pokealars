@@ -36,6 +36,7 @@
 <body>
     <div class="image-container">
         <img src="lars_moment.jpg" alt="Center Image" id="interactiveImage">
+        <audio id="sound" src="mmeeeee.mp3"></audio>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -44,7 +45,7 @@
         image.addEventListener("click", () => {
             // Add class to animate the image
             image.classList.add("fall-back");
-
+            document.getElementById('sound').play();
             // Remove the class after the animation duration (0.6s)
             setTimeout(() => {
                 image.classList.remove("fall-back");
