@@ -60,6 +60,8 @@
             // Add class to animate the image
             // check if lars can fight back (only 70% chance, lars is weak)
             const fightBack = () => Math.random() < 0.7 ? 0 : 1;
+            var fightBackVal = fightBack();
+            
             // if fightBack == 0 (play mmmmeeeeeee)
             if (fightBack == 0){
                 image.classList.add("fall-back");
@@ -73,7 +75,7 @@
                 void image.offsetWidth;
                 image.classList.add("pop");
                 document.getElementById('sound_lars').play();
-            };
+            }; // if fightBack == 1, play LARS!
         });
     });
     </script>
