@@ -58,19 +58,19 @@
 
         image.addEventListener("click", () => {
             // Add class to animate the image
-            // check if lars can fight back (only 70% chance, lars is weak)
+            // check if lars can fight back (only 30% chance, lars is weak)
             const fightBack = () => Math.random() < 0.7 ? 0 : 1;
             var fightBackVal = fightBack();
             
             // if fightBack == 0 (play mmmmeeeeeee)
-            if (fightBack == 0){
+            if (fightBackVal == 0){
                 image.classList.add("fall-back");
                 document.getElementById('sound_mmme').play();
             // Remove the class after the animation duration (0.6s)
                 setTimeout(() => {
                     image.classList.remove("fall-back");
                 }, 600);
-            } else if (fightBack == 1) {
+            } else if (fightBackVal == 1) {
                 image.classList.remove("pop");
                 void image.offsetWidth;
                 image.classList.add("pop");
