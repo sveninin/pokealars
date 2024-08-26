@@ -15,6 +15,19 @@
         background-color: #ffffff;
     }
 
+    button {
+            z-index: 10;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    .overall-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+    }
+
     .image-container {
         position: relative;
     }
@@ -44,13 +57,36 @@
     .pop {
         animation: pop 0.3s ease;
     }
+
+    #punchphoto {
+        position: absolute;
+        left: -300vw;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: all 1s ease-in-out;
+    }
+
+    #punchphoto.punch {
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    #flyPhoto.flyBack {
+        left: -300vw;
+    }
     </style>
 </head>
 <body>
+    <div class="overall-container">
     <div class="image-container">
         <img src="lars_moment.jpg" alt="Center Image" id="interactiveImage">
+        <img id="punchphoto" src="punch.png">
         <audio id="sound_mmme" src="mmeeeee.mp3"></audio>
         <audio id="sound_lars" src="lars_angry.mp3"></audio>
+    </div>
+    <div class="general-button">
+        <button onclick="punch()">Punch Lars</button>
+    </div>
     </div>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
@@ -58,8 +94,8 @@
 
         image.addEventListener("click", () => {
             // Add class to animate the image
-            // check if lars can fight back (only 30% chance, lars is weak)
-            const fightBack = () => Math.random() < 0.7 ? 0 : 1;
+            // check if lars can fight back (only 1% chance, lars is weak)
+            const fightBack = () => Math.random() < 0.99 ? 0 : 1;
             var fightBackVal = fightBack();
             
             // if fightBack == 0 (play mmmmeeeeeee)
@@ -78,6 +114,30 @@
             }; // if fightBack == 1, play LARS!
         });
     });
+
+        function punch() {
+            const photo = document.getElementById('punchphoto');
+            const image = document.getElementById("interactiveImage");
+
+            photo.classList.add('punch');
+
+            // After 1 seconds (when the photo reaches the center), start flying back
+            setTimeout(() => {
+                photo.classList.remove('punch');
+                photo.classList.add('flyBack');
+                // make lars fall back
+                image.classList.add("fall-back");
+                document.getElementById('sound_mmme').play();
+                setTimeout(() => {
+                        image.classList.remove("fall-back");
+                    }, 600);
+            }, 1000);
+            
+            // After 2 seconds (when the photo reaches back to its initial position), remove the flyBack class
+            setTimeout(() => {
+                photo.classList.remove('flyBack');
+            }, 2000);
+        };
     </script>
 </body>
 </html>
